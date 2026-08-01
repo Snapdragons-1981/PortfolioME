@@ -7,12 +7,14 @@ import HolographicNav from "@/components/HolographicNav";
 import PlanetSceneView from "@/components/PlanetSceneView";
 import SandboxMenu from "@/components/SandboxMenu";
 import ShipHUD from "@/components/ShipHUD";
+import SimpleResume from "@/components/SimpleResume";
 import SimulationControls from "@/components/SimulationControls";
 import Workspace from "@/components/Workspace";
 import { usePortfolioStore } from "@/store/usePortfolioStore";
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Toaster } from "sonner";
+import { HelpCircle, X, FileText } from "lucide-react";
 
 function WelcomeBanner() {
   const [glitchActive, setGlitchActive] = useState(false);
@@ -95,23 +97,64 @@ function WelcomeBanner() {
         {typedText}
         <span className="inline-block w-2 h-4 bg-cyan-400/80 ml-1 animate-typing-cursor align-middle" />
       </p>
+    </motion.div>
+  );
+}
 
-      {/* Keyboard hint */}
-      <motion.p
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 2 }}
-        className="text-slate-600 text-xs font-mono mt-3 tracking-wider"
-      >
-        PRESS <kbd className="px-1.5 py-0.5 bg-slate-800/80 border border-slate-700/50 rounded text-slate-500">`</kbd> FOR TERMINAL · PRESS <kbd className="px-1.5 py-0.5 bg-slate-800/80 border border-slate-700/50 rounded text-slate-500">P</kbd> TO LAUNCH SHIP
-      </motion.p>
+function HelpTooltip() {
+  const [dismissed, setDismissed] = useState(false);
+  const [visible, setVisible] = useState(false);
+  const pilotMode = usePortfolioStore((s) => s.pilotMode);
+
+  useEffect(() => {
+    const timer = setTimeout(() => setVisible(true), 3000);
+    return () => clearTimeout(timer);
+  }, []);
+
+  useEffect(() => {
+    const timer = setTimeout(() => setDismissed(true), 12000);
+    return () => clearTimeout(timer);
+  }, []);
+
+  if (pilotMode || dismissed || !visible) return null;
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 10 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0, y: 10 }}
+      transition={{ duration: 0.4 }}
+      className="fixed bottom-6 right-6 z-10"
+    >
+      <div className="relative rounded-xl border border-slate-700/50 bg-[#0a0f1e]/90 backdrop-blur-md px-4 py-3 max-w-[260px] shadow-xl">
+        <button
+          onClick={() => setDismissed(true)}
+          className="absolute top-2 right-2 text-slate-500 hover:text-slate-300 transition-colors"
+        >
+          <X size={14} />
+        </button>
+        <div className="flex items-center gap-2 mb-2">
+          <HelpCircle size={14} className="text-cyan-400" />
+          <span className="font-mono text-[10px] tracking-widest text-cyan-400 uppercase">Quick Tips</span>
+        </div>
+        <div className="space-y-1.5">
+          <p className="font-mono text-[11px] text-slate-400 flex items-center gap-2">
+            <kbd className="px-1.5 py-0.5 bg-slate-800/80 border border-slate-700/50 rounded text-slate-500 text-[10px]">`</kbd>
+            <span>Terminal</span>
+          </p>
+          <p className="font-mono text-[11px] text-slate-400 flex items-center gap-2">
+            <kbd className="px-1.5 py-0.5 bg-slate-800/80 border border-slate-700/50 rounded text-slate-500 text-[10px]">P</kbd>
+            <span>Launch Ship</span>
+          </p>
+        </div>
+      </div>
     </motion.div>
   );
 }
 
 export default function Home() {
   const [bootComplete, setBootComplete] = useState(false);
-  const { setFlyToPlanet } = usePortfolioStore();
+  const { setFlyToPlanet, simpleView, setSimpleView } = usePortfolioStore();
   const sandboxMode = usePortfolioStore((s) => s.sandboxMode);
   const pilotMode = usePortfolioStore((s) => s.pilotMode);
 
@@ -136,7 +179,10 @@ export default function Home() {
         )}
       </AnimatePresence>
 
-      {bootComplete && (
+      {/* Simple Resume View */}
+      <SimpleResume />
+
+      {bootComplete && !simpleView && (
         <>
           <Workspace />
           <HolographicNav
@@ -149,7 +195,21 @@ export default function Home() {
           <PlanetSceneView />
           <HackerTerminal />
           <WelcomeBanner />
+          <HelpTooltip />
           <ShipHUD />
+
+          {/* View Toggle Button */}
+          <motion.button
+            initial={{ opacity: 0, x: 20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ delay: 1.5 }}
+            onClick={() => setSimpleView(true)}
+            className="fixed top-6 right-6 z-30 flex items-center gap-2 px-4 py-2.5 rounded-full border border-slate-700/50 bg-[#0a0f1e]/80 backdrop-blur-md text-slate-400 hover:text-cyan-400 hover:border-cyan-400/30 transition-all group"
+            title="Switch to Simple View"
+          >
+            <FileText size={16} className="group-hover:rotate-12 transition-transform" />
+            <span className="font-mono text-xs tracking-wider">SIMPLE VIEW</span>
+          </motion.button>
         </>
       )}
     </>

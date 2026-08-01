@@ -11,12 +11,12 @@ export interface PlanetData {
 }
 
 export const PLANETS: PlanetData[] = [
-  { id: 'about', name: 'ABOUT', color: '#00bfff', size: 0.8, distance: 3, speed: 0.15, position: [0, 0, 0] },
-  { id: 'skills', name: 'SKILLS', color: '#7cfc00', size: 1, distance: 5, speed: 0.12, position: [0, 0, 0] },
-  { id: 'projects', name: 'PROJECTS', color: '#ff69b4', size: 1.7, distance: 7.5, speed: 0.1, position: [0, 0, 0] },
-  { id: 'experience', name: 'EXPERIENCE', color: '#ff8c00', size: 1, distance: 10, speed: 0.08, position: [0, 0, 0] },
-  { id: 'education', name: 'EDUCATION', color: '#9932cc', size: 1.2, distance: 12.5, speed: 0.06, position: [0, 0, 0] },
-  { id: 'contact', name: 'CONTACT', color: '#ff1493', size: 0.85, distance: 15, speed: 0.05, position: [0, 0, 0] },
+  { id: 'about', name: 'ABOUT', color: '#22d3ee', size: 0.8, distance: 3, speed: 0.15, position: [0, 0, 0] },
+  { id: 'skills', name: 'SKILLS', color: '#60a5fa', size: 1, distance: 5, speed: 0.12, position: [0, 0, 0] },
+  { id: 'projects', name: 'PROJECTS', color: '#a78bfa', size: 1.7, distance: 7.5, speed: 0.1, position: [0, 0, 0] },
+  { id: 'experience', name: 'EXPERIENCE', color: '#34d399', size: 1, distance: 10, speed: 0.08, position: [0, 0, 0] },
+  { id: 'education', name: 'EDUCATION', color: '#fbbf24', size: 1.2, distance: 12.5, speed: 0.06, position: [0, 0, 0] },
+  { id: 'contact', name: 'CONTACT', color: '#f472b6', size: 0.85, distance: 15, speed: 0.05, position: [0, 0, 0] },
 ];
 
 export type WeaponId = 'asteroid' | 'laser' | 'nuke' | 'firework';
@@ -65,6 +65,8 @@ interface PortfolioStore {
   removeProjectile: (id: string) => void;
   resetSandbox: () => void;
   exitSandbox: () => void;
+  simpleView: boolean;
+  setSimpleView: (value: boolean) => void;
 }
 
 let projectileSeq = 0;
@@ -121,4 +123,6 @@ export const usePortfolioStore = create<PortfolioStore>((set) => ({
   resetSandbox: () => set({ explosions: {}, projectiles: [], weapon: 'asteroid' }),
   exitSandbox: () =>
     set({ sandboxMode: false, explosions: {}, projectiles: [], weapon: 'asteroid', sunCharges: 0 }),
+  simpleView: false,
+  setSimpleView: (value) => set({ simpleView: value }),
 }));

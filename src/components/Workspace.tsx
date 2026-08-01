@@ -1,7 +1,7 @@
 "use client";
 
 import { PLANETS, usePortfolioStore } from "@/store/usePortfolioStore";
-import { Float, OrbitControls, Stars, Text } from "@react-three/drei";
+import { Billboard, Float, OrbitControls, Stars, Text } from "@react-three/drei";
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import { AnimatePresence, motion } from "framer-motion";
 import { toast } from "sonner";
@@ -423,31 +423,37 @@ const Planet = ({
           )}
 
           {/* Planet label */}
-          <Text
-            position={[0, data.size + 0.7, 0]}
-            fontSize={0.35}
-            color={hovered ? "#ffffff" : data.color}
-            anchorX="center"
-            anchorY="middle"
-            outlineWidth={0.02}
-            outlineColor="#000000"
-          >
-            {data.name}
-          </Text>
+          <Billboard position={[0, data.size + 0.7, 0]}>
+            <Text
+              fontSize={0.35}
+              color={hovered ? "#ffffff" : data.color}
+              anchorX="center"
+              anchorY="middle"
+              outlineWidth={0.02}
+              outlineColor="#000000"
+              letterSpacing={0.08}
+              font="https://fonts.gstatic.com/s/jetbrainsmono/v18/tDbY2o-flEEny0FZhsfKu5WU4zr3E_BX0PnT8RD8yKxTPlOVkQ.woff2"
+            >
+              {data.name}
+            </Text>
+          </Billboard>
 
           {/* Sandbox target hint */}
           {hovered && sandboxMode && (
-            <Text
-              position={[0, data.size - 0.9, 0]}
-              fontSize={0.18}
-              color="#f472b6"
-              anchorX="center"
-              anchorY="middle"
-              outlineWidth={0.012}
-              outlineColor="#000000"
-            >
-              TARGET · {weapon.toUpperCase()}
-            </Text>
+            <Billboard position={[0, data.size - 0.9, 0]}>
+              <Text
+                fontSize={0.18}
+                color="#f472b6"
+                anchorX="center"
+                anchorY="middle"
+                outlineWidth={0.012}
+                outlineColor="#000000"
+                letterSpacing={0.08}
+                font="https://fonts.gstatic.com/s/jetbrainsmono/v18/tDbY2o-flEEny0FZhsfKu5WU4zr3E_BX0PnT8RD8yKxTPlOVkQ.woff2"
+              >
+                TARGET · {weapon.toUpperCase()}
+              </Text>
+            </Billboard>
           )}
 
           {/* Glow ring on hover */}

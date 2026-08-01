@@ -274,18 +274,18 @@ const AboutPanel = () => (
         <div className="p-2 rounded-xl bg-cyan-500/10 border border-cyan-500/20">
           <Terminal size={28} className="text-cyan-400" />
         </div>
-        <h1 className="text-4xl font-bold text-gradient-cyan">ABOUT ME</h1>
+        <h1 className="text-4xl font-bold text-gradient-cyan font-mono tracking-wider">ABOUT ME</h1>
       </div>
       <div className="h-px bg-gradient-to-r from-cyan-500/50 via-cyan-500/20 to-transparent mb-6" />
 
       <div className="grid md:grid-cols-2 gap-8 mb-8">
         <div className="space-y-4">
-          <p className="text-slate-300 text-lg leading-relaxed">
+          <p className="text-slate-300 text-lg leading-relaxed font-mono">
             Hi, I&apos;m <span className="text-cyan-400 font-semibold">Wenrick Jay Z. Ganas</span> — a detail-oriented and
             solutions-driven IT Specialist with experience in technical support, system maintenance, and
             network troubleshooting.
           </p>
-          <p className="text-slate-400 leading-relaxed">
+          <p className="text-slate-400 leading-relaxed font-mono">
             I thrive on solving complex technical problems and building efficient systems. Currently pursuing
             my BS in Information Technology while gaining hands-on experience in the field.
           </p>
@@ -306,8 +306,8 @@ const AboutPanel = () => (
               className="p-4 rounded-xl border border-cyan-500/10 bg-cyan-500/5"
             >
               <stat.icon size={18} className="text-cyan-500/60 mb-2" />
-              <p className="text-2xl font-bold text-cyan-400">{stat.value}</p>
-              <p className="text-xs text-slate-500 uppercase tracking-wider">{stat.label}</p>
+              <p className="text-2xl font-bold text-cyan-400 font-mono">{stat.value}</p>
+              <p className="text-xs text-slate-500 uppercase tracking-wider font-mono">{stat.label}</p>
             </motion.div>
           ))}
         </div>
@@ -346,14 +346,14 @@ const SkillsPanel = () => {
           <div className="p-2 rounded-xl bg-green-500/10 border border-green-500/20">
             <Cpu size={28} className="text-green-400" />
           </div>
-          <h1 className="text-4xl font-bold text-gradient-green">SKILLS</h1>
+          <h1 className="text-4xl font-bold text-gradient-green font-mono tracking-wider">SKILLS</h1>
         </div>
         <div className="h-px bg-gradient-to-r from-green-500/50 via-green-500/20 to-transparent mb-6" />
 
         <div className="grid md:grid-cols-2 gap-8 mb-8">
           {/* Technical Skills */}
           <div>
-            <h2 className="text-lg font-semibold text-white mb-4 flex items-center gap-2">
+            <h2 className="text-lg font-semibold text-white mb-4 flex items-center gap-2 font-mono">
               <Zap size={18} className="text-green-400" /> Technical Skills
             </h2>
             <div className="space-y-3">
@@ -365,7 +365,7 @@ const SkillsPanel = () => {
                   transition={{ delay: 0.1 + i * 0.05 }}
                 >
                   <div className="flex justify-between mb-1">
-                    <span className="text-sm text-slate-300">{skill.name}</span>
+                    <span className="text-sm text-slate-300 font-mono">{skill.name}</span>
                     <span className="text-xs text-green-400/70 font-mono">{skill.level}%</span>
                   </div>
                   <div className="h-1.5 bg-slate-800 rounded-full overflow-hidden">
@@ -384,7 +384,7 @@ const SkillsPanel = () => {
 
           {/* Tools */}
           <div>
-            <h2 className="text-lg font-semibold text-white mb-4 flex items-center gap-2">
+            <h2 className="text-lg font-semibold text-white mb-4 flex items-center gap-2 font-mono">
               <Wrench size={18} className="text-green-400" /> Tools & Platforms
             </h2>
             <div className="grid grid-cols-2 gap-3">
@@ -397,7 +397,7 @@ const SkillsPanel = () => {
                   className="flex items-center gap-3 p-3 rounded-xl border border-green-500/15 bg-green-500/5 hover:bg-green-500/10 transition-all group"
                 >
                   <span className="text-xl">{tool.icon}</span>
-                  <span className="text-sm text-slate-300 group-hover:text-green-300 transition-colors">
+                  <span className="text-sm text-slate-300 group-hover:text-green-300 transition-colors font-mono">
                     {tool.name}
                   </span>
                 </motion.div>
@@ -448,7 +448,7 @@ const ProjectsPanel = () => {
           <div className="p-2 rounded-xl bg-purple-500/10 border border-purple-500/20">
             <Code2 size={28} className="text-purple-400" />
           </div>
-          <h1 className="text-4xl font-bold text-gradient-purple">PROJECTS</h1>
+          <h1 className="text-4xl font-bold text-gradient-purple font-mono tracking-wider">PROJECTS</h1>
         </div>
         <div className="h-px bg-gradient-to-r from-purple-500/50 via-purple-500/20 to-transparent mb-6" />
 
@@ -467,7 +467,7 @@ const ProjectsPanel = () => {
               <h2 className="text-lg font-bold text-purple-200 mb-2">
                 {project.title}
               </h2>
-              <p className="text-sm text-slate-400 leading-relaxed mb-4">
+              <p className="text-sm text-slate-400 leading-relaxed mb-4 font-mono">
                 {project.description}
               </p>
               <div className="flex flex-wrap gap-2">
@@ -507,7 +507,7 @@ const ExperiencePanel = () => {
           <div className="p-2 rounded-xl bg-orange-500/10 border border-orange-500/20">
             <Briefcase size={28} className="text-orange-400" />
           </div>
-          <h1 className="text-4xl font-bold text-gradient-orange">EXPERIENCE</h1>
+          <h1 className="text-4xl font-bold text-gradient-orange font-mono tracking-wider">EXPERIENCE</h1>
         </div>
         <div className="h-px bg-gradient-to-r from-orange-500/50 via-orange-500/20 to-transparent mb-6" />
 
@@ -537,7 +537,7 @@ const ExperiencePanel = () => {
                     initial={{ opacity: 0, x: -15 }}
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ delay: 0.2 + i * 0.05 }}
-                    className="flex gap-3 text-slate-300 text-sm"
+                    className="flex gap-3 text-slate-300 text-sm font-mono"
                   >
                     <span className="mt-1.5 h-1.5 w-1.5 rounded-full bg-orange-400 shrink-0" />
                     {item}
@@ -560,7 +560,7 @@ const EducationPanel = () => (
         <div className="p-2 rounded-xl bg-yellow-500/10 border border-yellow-500/20">
           <GraduationCap size={28} className="text-yellow-400" />
         </div>
-        <h1 className="text-4xl font-bold text-gradient-yellow">EDUCATION</h1>
+        <h1 className="text-4xl font-bold text-gradient-yellow font-mono tracking-wider">EDUCATION</h1>
       </div>
       <div className="h-px bg-gradient-to-r from-yellow-500/50 via-yellow-500/20 to-transparent mb-6" />
 
@@ -579,7 +579,7 @@ const EducationPanel = () => (
                 IN PROGRESS
               </span>
             </div>
-            <p className="text-slate-400 leading-relaxed">
+            <p className="text-slate-400 leading-relaxed font-mono">
               Currently pursuing my degree with a focus on web development, software engineering, and IT systems management. Actively building projects and gaining hands-on experience through coursework and personal initiatives.
             </p>
 
@@ -590,8 +590,8 @@ const EducationPanel = () => (
                 { label: "Status", value: "Active" },
               ].map((item, i) => (
                 <div key={i} className="p-3 rounded-xl bg-yellow-500/5 border border-yellow-500/10 text-center">
-                  <p className="text-lg font-bold text-yellow-400">{item.value}</p>
-                  <p className="text-[11px] text-slate-500 uppercase tracking-wider">{item.label}</p>
+                  <p className="text-lg font-bold text-yellow-400 font-mono">{item.value}</p>
+                  <p className="text-[11px] text-slate-500 uppercase tracking-wider font-mono">{item.label}</p>
                 </div>
               ))}
             </div>
@@ -618,14 +618,14 @@ const ContactPanel = () => {
           <div className="p-2 rounded-xl bg-pink-500/10 border border-pink-500/20">
             <MessageSquare size={28} className="text-pink-400" />
           </div>
-          <h1 className="text-4xl font-bold text-gradient-pink">CONTACT</h1>
+          <h1 className="text-4xl font-bold text-gradient-pink font-mono tracking-wider">CONTACT</h1>
         </div>
         <div className="h-px bg-gradient-to-r from-pink-500/50 via-pink-500/20 to-transparent mb-6" />
 
         <div className="grid md:grid-cols-2 gap-8">
           {/* Contact info */}
           <div className="space-y-4">
-            <p className="text-slate-400 leading-relaxed mb-6">
+            <p className="text-slate-400 leading-relaxed font-mono mb-6">
               Got a project in mind or want to collaborate? Feel free to reach out through any of these channels.
             </p>
 
@@ -645,7 +645,7 @@ const ContactPanel = () => {
                   <item.icon size={20} className="text-pink-400" />
                 </div>
                 <div>
-                  <p className="text-xs text-slate-500 uppercase tracking-wider mb-0.5">
+                  <p className="text-xs text-slate-500 uppercase tracking-wider mb-0.5 font-mono">
                     {item.label}
                   </p>
                   {item.href ? (

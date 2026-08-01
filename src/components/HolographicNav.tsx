@@ -21,10 +21,10 @@ export type NavItem = {
 
 const navItems: NavItem[] = [
   { id: "about", label: "ABOUT", icon: <Terminal size={18} />, color: "text-cyan-400", glowColor: "rgba(34,211,238,0.4)" },
-  { id: "skills", label: "SKILLS", icon: <Cpu size={18} />, color: "text-green-400", glowColor: "rgba(74,222,128,0.4)" },
-  { id: "projects", label: "PROJECTS", icon: <Code2 size={18} />, color: "text-purple-400", glowColor: "rgba(168,85,247,0.4)" },
-  { id: "experience", label: "EXPERIENCE", icon: <Briefcase size={18} />, color: "text-orange-400", glowColor: "rgba(251,146,60,0.4)" },
-  { id: "education", label: "EDUCATION", icon: <GraduationCap size={18} />, color: "text-yellow-400", glowColor: "rgba(250,204,21,0.4)" },
+  { id: "skills", label: "SKILLS", icon: <Cpu size={18} />, color: "text-blue-400", glowColor: "rgba(96,165,250,0.4)" },
+  { id: "projects", label: "PROJECTS", icon: <Code2 size={18} />, color: "text-violet-400", glowColor: "rgba(167,139,250,0.4)" },
+  { id: "experience", label: "EXPERIENCE", icon: <Briefcase size={18} />, color: "text-emerald-400", glowColor: "rgba(52,211,153,0.4)" },
+  { id: "education", label: "EDUCATION", icon: <GraduationCap size={18} />, color: "text-amber-400", glowColor: "rgba(251,191,36,0.4)" },
   { id: "contact", label: "CONTACT", icon: <MessageSquare size={18} />, color: "text-pink-400", glowColor: "rgba(244,114,182,0.4)" },
 ];
 

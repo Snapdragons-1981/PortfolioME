@@ -1,6 +1,6 @@
 "use client";
 
-import { ContactShadows, Sparkles, Stars, Text } from "@react-three/drei";
+import { Billboard, ContactShadows, Sparkles, Stars, Text } from "@react-three/drei";
 import { useFrame } from "@react-three/fiber";
 import { useMemo, useRef, type ReactNode } from "react";
 import * as THREE from "three";
@@ -155,19 +155,21 @@ export const Label = ({
   color?: string;
   opacity?: number;
 }) => (
-  <Text
-    position={position}
-    fontSize={fontSize}
-    color={color}
-    anchorX="center"
-    anchorY="middle"
-    fillOpacity={opacity}
-    outlineWidth={0.012}
-    outlineColor="#000000"
-    letterSpacing={0.06}
-  >
-    {children}
-  </Text>
+  <Billboard position={position}>
+    <Text
+      fontSize={fontSize}
+      color={color}
+      anchorX="center"
+      anchorY="middle"
+      fillOpacity={opacity}
+      outlineWidth={0.012}
+      outlineColor="#000000"
+      letterSpacing={0.08}
+      font="https://fonts.gstatic.com/s/jetbrainsmono/v18/tDbY2o-flEEny0FZhsfKu5WU4zr3E_BX0PnT8RD8yKxTPlOVkQ.woff2"
+    >
+      {children}
+    </Text>
+  </Billboard>
 );
 
 export const Atmosphere = ({ color, ground }: { color: string; ground: string }) => (
