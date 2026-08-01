@@ -432,7 +432,6 @@ const Planet = ({
               outlineWidth={0.02}
               outlineColor="#000000"
               letterSpacing={0.08}
-              font="https://fonts.gstatic.com/s/jetbrainsmono/v18/tDbY2o-flEEny0FZhsfKu5WU4zr3E_BX0PnT8RD8yKxTPlOVkQ.woff2"
             >
               {data.name}
             </Text>
@@ -449,7 +448,6 @@ const Planet = ({
                 outlineWidth={0.012}
                 outlineColor="#000000"
                 letterSpacing={0.08}
-                font="https://fonts.gstatic.com/s/jetbrainsmono/v18/tDbY2o-flEEny0FZhsfKu5WU4zr3E_BX0PnT8RD8yKxTPlOVkQ.woff2"
               >
                 TARGET · {weapon.toUpperCase()}
               </Text>
