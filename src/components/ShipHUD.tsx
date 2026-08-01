@@ -188,9 +188,10 @@ export default function ShipHUD() {
             <div className="flex items-center gap-2 font-mono text-[10px] tracking-widest text-slate-500">
               <Keyboard size={12} className="text-slate-500" />
               <span>
-                MOUSE STEER · <b className="text-slate-300">W/S</b> THRUST ·{" "}
-                <b className="text-slate-300">A/D</b> ROLL · <b className="text-slate-300">SPACE/CTRL</b>{" "}
-                UP/DOWN · <b className="text-slate-300">SHIFT</b> BOOST · <b className="text-slate-300">F</b>{" "}
+                <b className="text-slate-300">W</b> THRUST · <b className="text-slate-300">S</b>{" "}
+                BRAKE · <b className="text-slate-300">A/D</b> TURN ·{" "}
+                <b className="text-slate-300">SPACE/CTRL</b> PITCH ·{" "}
+                <b className="text-slate-300">SHIFT</b> BOOST · <b className="text-slate-300">F</b>{" "}
                 DOCK · <b className="text-slate-300">P</b> ABORT
               </span>
             </div>

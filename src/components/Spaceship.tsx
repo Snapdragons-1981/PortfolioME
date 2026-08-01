@@ -10,6 +10,8 @@ import { planetPositionsRef, shipTelemetry } from "@/lib/worldRefs";
 const CHASE_OFFSET = new THREE.Vector3(0, 1.7, 4.6);
 const WORLD_RADIUS = 44;
 const MAX_SPEED = 30;
+const TURN_RATE = 1.35;
+const PITCH_MAX = 0.55;
 const PREVENT_KEYS = new Set(["w", "a", "s", "d", " ", "control", "shift"]);
 
 const clamp = (v: number, min: number, max: number) => Math.max(min, Math.min(max, v));
@@ -24,7 +26,6 @@ export default function Spaceship() {
   const lightRef = useRef<THREE.PointLight>(null);
 
   const keysRef = useRef<Record<string, boolean>>({});
-  const cursorRef = useRef<{ x: number; y: number }>({ x: 0, y: 0 });
   const yawRef = useRef(0);
   const pitchRef = useRef(0);
   const bankRef = useRef(0);
@@ -59,22 +60,16 @@ export default function Spaceship() {
     const handleKeyUp = (e: KeyboardEvent) => {
       keysRef.current[e.key.toLowerCase()] = false;
     };
-    const handleMouseMove = (e: MouseEvent) => {
-      cursorRef.current.x = (e.clientX / window.innerWidth) * 2 - 1;
-      cursorRef.current.y = (e.clientY / window.innerHeight) * 2 - 1;
-    };
     const handleBlur = () => {
       keysRef.current = {};
     };
 
     window.addEventListener("keydown", handleKeyDown);
     window.addEventListener("keyup", handleKeyUp);
-    window.addEventListener("mousemove", handleMouseMove);
     window.addEventListener("blur", handleBlur);
     return () => {
       window.removeEventListener("keydown", handleKeyDown);
       window.removeEventListener("keyup", handleKeyUp);
-      window.removeEventListener("mousemove", handleMouseMove);
       window.removeEventListener("blur", handleBlur);
     };
   }, [dock]);
@@ -118,14 +113,16 @@ export default function Spaceship() {
     const boost = keys.shift ? 1 : 0;
     boostRef.current += (boost - boostRef.current) * Math.min(1, 6 * dt);
 
-    const steerYaw = cursorRef.current.x * 0.9;
-    const steerPitch = -cursorRef.current.y * 0.55;
-    yawRef.current += (steerYaw - yawRef.current) * Math.min(1, 5 * dt);
-    pitchRef.current += (steerPitch - pitchRef.current) * Math.min(1, 5 * dt);
+    const turnDir = (keys.a ? 1 : 0) - (keys.d ? 1 : 0);
+    yawRef.current += turnDir * TURN_RATE * dt;
 
-    const rollInput = (keys.a ? 1 : 0) - (keys.d ? 1 : 0);
-    const rollTarget = clamp(-cursorRef.current.x * 0.5 + rollInput * 0.6, -0.85, 0.85);
-    bankRef.current += (rollTarget - bankRef.current) * Math.min(1, 6 * dt);
+    let pitchTarget = 0;
+    if (keys[" "]) pitchTarget = PITCH_MAX;
+    if (keys.control) pitchTarget = -PITCH_MAX;
+    pitchRef.current += (pitchTarget - pitchRef.current) * Math.min(1, 5 * dt);
+
+    const bankTarget = -turnDir * 0.55;
+    bankRef.current += (bankTarget - bankRef.current) * Math.min(1, 6 * dt);
 
     forwardVector.set(
       -Math.sin(yawRef.current),
@@ -135,10 +132,11 @@ export default function Spaceship() {
 
     const throttle = (keys.w ? 1 : 0) - (keys.s ? 1 : 0);
     const velocity = velocityRef.current;
-    const accel = 18 * (1 + boostRef.current * 2.2);
+    const fwdSpeed = velocity.dot(forwardVector);
+    const brakeMult = throttle < 0 && fwdSpeed > 0.5 ? 2.8 : 1;
+    const accel = 18 * (1 + boostRef.current * 2.2) * brakeMult;
+    velocity.multiplyScalar(Math.exp(-0.6 * dt));
     velocity.addScaledVector(forwardVector, throttle * accel * dt);
-    velocity.y += ((keys[" "] ? 1 : 0) - (keys.control ? 1 : 0)) * 15 * dt;
-    velocity.multiplyScalar(Math.exp(-1.4 * dt));
     if (velocity.length() > MAX_SPEED * (1 + boostRef.current * 0.35)) {
       velocity.setLength(MAX_SPEED * (1 + boostRef.current * 0.35));
     }
