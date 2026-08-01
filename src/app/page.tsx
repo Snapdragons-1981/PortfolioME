@@ -6,6 +6,7 @@ import HackerTerminal from "@/components/HackerTerminal";
 import HolographicNav from "@/components/HolographicNav";
 import PlanetSceneView from "@/components/PlanetSceneView";
 import SandboxMenu from "@/components/SandboxMenu";
+import ShipHUD from "@/components/ShipHUD";
 import SimulationControls from "@/components/SimulationControls";
 import Workspace from "@/components/Workspace";
 import { usePortfolioStore } from "@/store/usePortfolioStore";
@@ -17,6 +18,7 @@ function WelcomeBanner() {
   const [glitchActive, setGlitchActive] = useState(false);
   const [typedText, setTypedText] = useState("");
   const fullText = "CLICK ON A PLANET TO EXPLORE";
+  const pilotMode = usePortfolioStore((s) => s.pilotMode);
 
   useEffect(() => {
     const glitchInterval = setInterval(() => {
@@ -38,6 +40,8 @@ function WelcomeBanner() {
     }, 50);
     return () => clearInterval(timer);
   }, []);
+
+  if (pilotMode) return null;
 
   return (
     <motion.div
@@ -99,7 +103,7 @@ function WelcomeBanner() {
         transition={{ delay: 2 }}
         className="text-slate-600 text-xs font-mono mt-3 tracking-wider"
       >
-        PRESS <kbd className="px-1.5 py-0.5 bg-slate-800/80 border border-slate-700/50 rounded text-slate-500">`</kbd> FOR TERMINAL
+        PRESS <kbd className="px-1.5 py-0.5 bg-slate-800/80 border border-slate-700/50 rounded text-slate-500">`</kbd> FOR TERMINAL · PRESS <kbd className="px-1.5 py-0.5 bg-slate-800/80 border border-slate-700/50 rounded text-slate-500">P</kbd> TO LAUNCH SHIP
       </motion.p>
     </motion.div>
   );
@@ -109,6 +113,7 @@ export default function Home() {
   const [bootComplete, setBootComplete] = useState(false);
   const { setFlyToPlanet } = usePortfolioStore();
   const sandboxMode = usePortfolioStore((s) => s.sandboxMode);
+  const pilotMode = usePortfolioStore((s) => s.pilotMode);
 
   return (
     <>
@@ -134,12 +139,17 @@ export default function Home() {
       {bootComplete && (
         <>
           <Workspace />
-          <HolographicNav onSelect={(id) => { if (!sandboxMode) setFlyToPlanet(id); }} />
+          <HolographicNav
+            onSelect={(id) => {
+              if (!sandboxMode && !pilotMode) setFlyToPlanet(id);
+            }}
+          />
           <SimulationControls />
           <SandboxMenu />
           <PlanetSceneView />
           <HackerTerminal />
           <WelcomeBanner />
+          <ShipHUD />
         </>
       )}
     </>

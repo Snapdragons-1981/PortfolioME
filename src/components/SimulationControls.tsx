@@ -7,9 +7,9 @@ import { usePortfolioStore } from "@/store/usePortfolioStore";
 const SPEEDS = [1, 2, 4, 8];
 
 export default function SimulationControls() {
-  const { paused, setPaused, timeScale, setTimeScale, activePlanet, sandboxMode } = usePortfolioStore();
+  const { paused, setPaused, timeScale, setTimeScale, activePlanet, sandboxMode, pilotMode } = usePortfolioStore();
 
-  if (activePlanet) return null;
+  if (activePlanet || pilotMode) return null;
 
   return (
     <motion.div

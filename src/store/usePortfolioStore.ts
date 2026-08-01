@@ -52,6 +52,8 @@ interface PortfolioStore {
   setTimeScale: (value: number) => void;
   sandboxMode: boolean;
   setSandboxMode: (value: boolean) => void;
+  pilotMode: boolean;
+  setPilotMode: (value: boolean) => void;
   weapon: WeaponId;
   setWeapon: (value: WeaponId) => void;
   sunCharges: number;
@@ -91,6 +93,8 @@ export const usePortfolioStore = create<PortfolioStore>((set) => ({
   setTimeScale: (value) => set({ timeScale: value }),
   sandboxMode: false,
   setSandboxMode: (value) => set({ sandboxMode: value }),
+  pilotMode: false,
+  setPilotMode: (value) => set({ pilotMode: value }),
   weapon: 'asteroid',
   setWeapon: (value) => set({ weapon: value }),
   sunCharges: 0,

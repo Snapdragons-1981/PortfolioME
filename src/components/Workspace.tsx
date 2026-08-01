@@ -18,6 +18,7 @@ import {
 import { planetPositionsRef } from "@/lib/worldRefs";
 import { Nebula, PlanetGlow, Moons, SpaceDust } from "@/components/UniverseAmbience";
 import { ExplosionField, Projectiles } from "@/components/SandboxFX";
+import Spaceship from "@/components/Spaceship";
 
 const HOME_POSITION = new THREE.Vector3(0, 12, 22);
 const FLIGHT_TIMEOUT_MS = 2400;
@@ -470,7 +471,7 @@ const CameraRig = () => {
     update: () => void;
   } | null;
 
-  const { flyToPlanet, setFlyToPlanet, setActivePlanet, flyBackHome, setFlyBackHome } =
+  const { flyToPlanet, setFlyToPlanet, setActivePlanet, flyBackHome, setFlyBackHome, pilotMode } =
     usePortfolioStore();
   const arrivedRef = useRef(false);
   const flightStartRef = useRef(0);
@@ -483,6 +484,7 @@ const CameraRig = () => {
   }, [flyToPlanet, flyBackHome]);
 
   useFrame((_, delta) => {
+    if (pilotMode) return;
     const forceArrive = Date.now() - flightStartRef.current > FLIGHT_TIMEOUT_MS;
 
     if (flyToPlanet) {
@@ -544,10 +546,10 @@ const CameraRig = () => {
 };
 
 const Scene = () => {
-  const { setFlyToPlanet, flyToPlanet, flyBackHome, activePlanet } = usePortfolioStore();
+  const { setFlyToPlanet, flyToPlanet, flyBackHome, activePlanet, pilotMode } = usePortfolioStore();
 
   const handleSelect = (id: string) => {
-    if (flyToPlanet || flyBackHome || activePlanet) return;
+    if (flyToPlanet || flyBackHome || activePlanet || pilotMode) return;
     setFlyToPlanet(id);
   };
 
@@ -578,6 +580,8 @@ const Scene = () => {
 
       <Projectiles />
       <ExplosionField />
+
+      {pilotMode && <Spaceship />}
 
       <OrbitControls
         makeDefault
